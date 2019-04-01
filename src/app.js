@@ -58,7 +58,8 @@ app.get('/weather', (req,res) => {
                 error: error
             })
         } else {
-            forcast(latitude, longitude, (error, {summary, temperature, precipProbability}) => {
+            forcast(latitude, longitude, (error, {
+                    summary, temperature, temperatureLow, temperatureHigh, precipProbability} = {}) => {
                 if (error) {
                     return res.send({
                         error: error
@@ -66,7 +67,8 @@ app.get('/weather', (req,res) => {
                 } else {
                     const longForcast = "The forcast for " + location + " is " + summary +
                         "The current temperature is " + temperature + " degrees with a " +
-                        precipProbability + "% chance of rain."
+                        precipProbability + "% chance of rain with a high of " + temperatureHigh +
+                        " and low of " + temperatureLow + "."
                     res.send({
                         forcast: summary,
                         location: location,
